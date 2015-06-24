@@ -30,12 +30,10 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Kalk));
             this.info = new System.Windows.Forms.GroupBox();
-            this.start = new System.Windows.Forms.Button();
             this.trans = new System.Windows.Forms.CheckBox();
             this.level = new System.Windows.Forms.NumericUpDown();
             this.calc = new System.Windows.Forms.GroupBox();
             this.points = new System.Windows.Forms.Label();
-            this.reset = new System.Windows.Forms.Button();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.Str = new System.Windows.Forms.NumericUpDown();
             this.label1 = new System.Windows.Forms.Label();
@@ -65,7 +63,6 @@
             // 
             this.info.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.info.Controls.Add(this.start);
             this.info.Controls.Add(this.trans);
             this.info.Controls.Add(this.level);
             this.info.Location = new System.Drawing.Point(12, 12);
@@ -74,16 +71,6 @@
             this.info.TabIndex = 0;
             this.info.TabStop = false;
             this.info.Text = "Level";
-            // 
-            // start
-            // 
-            this.start.Location = new System.Drawing.Point(134, 38);
-            this.start.Name = "start";
-            this.start.Size = new System.Drawing.Size(75, 23);
-            this.start.TabIndex = 2;
-            this.start.Text = "Start";
-            this.start.UseVisualStyleBackColor = true;
-            this.start.Click += new System.EventHandler(this.start_Click);
             // 
             // trans
             // 
@@ -94,6 +81,7 @@
             this.trans.TabIndex = 1;
             this.trans.Text = "Transcendant";
             this.trans.UseVisualStyleBackColor = true;
+            this.trans.CheckedChanged += new System.EventHandler(this.actualizar);
             // 
             // level
             // 
@@ -116,6 +104,7 @@
             0,
             0,
             0});
+            this.level.ValueChanged += new System.EventHandler(this.actualizar);
             // 
             // calc
             // 
@@ -123,7 +112,6 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.calc.Controls.Add(this.points);
-            this.calc.Controls.Add(this.reset);
             this.calc.Controls.Add(this.tableLayoutPanel1);
             this.calc.Location = new System.Drawing.Point(12, 85);
             this.calc.Name = "calc";
@@ -140,16 +128,6 @@
             this.points.Size = new System.Drawing.Size(75, 17);
             this.points.TabIndex = 4;
             this.points.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // reset
-            // 
-            this.reset.Location = new System.Drawing.Point(91, 44);
-            this.reset.Name = "reset";
-            this.reset.Size = new System.Drawing.Size(75, 23);
-            this.reset.TabIndex = 3;
-            this.reset.Text = "Reset";
-            this.reset.UseVisualStyleBackColor = true;
-            this.reset.Click += new System.EventHandler(this.reset_Click);
             // 
             // tableLayoutPanel1
             // 
@@ -418,7 +396,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(280, 258);
+            this.ClientSize = new System.Drawing.Size(280, 257);
             this.Controls.Add(this.calc);
             this.Controls.Add(this.info);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
@@ -448,8 +426,6 @@
         #endregion
 
         private System.Windows.Forms.GroupBox info;
-        private System.Windows.Forms.Button reset;
-        private System.Windows.Forms.Button start;
         private System.Windows.Forms.CheckBox trans;
         private System.Windows.Forms.NumericUpDown level;
         private System.Windows.Forms.GroupBox calc;

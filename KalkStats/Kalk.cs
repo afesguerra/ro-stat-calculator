@@ -15,64 +15,52 @@ namespace KalkStats
         public Kalk()
         {
             InitializeComponent();
-            calc.Enabled = false;
-            info.Enabled = true;
         }
 
-        private void start_Click(object sender, EventArgs e)
+        private int buildStats(int level, bool trans)
         {
-            calc.Enabled = true;
-            info.Enabled = false;
-            puntos = StatBuilder.build(Int32.Parse(""+level.Value), trans.Checked);
-            points.Text = puntos + "";
+            if (level < 1 || level > 99)
+            {
+                return 0;
+            }
+
+            int div = (int)Math.Ceiling(level / 5d) + 2;
+            int mod = (level - 1) % 5 + 1;
+            int prev = 5 * (((div - 1) * div) - 6) / 2;
+
+            int stats = 45 + div * mod + prev;
+
+            if (trans)
+            {
+                stats += 52;
+            }
+            return stats;
         }
 
-        private void reset_Click(object sender, EventArgs e)
+        private int spentStats(int level)
         {
-            calc.Enabled = false;
-            info.Enabled = true;
-            Str.Value = 1;
-            Agi.Value = 1;
-            Vit.Value = 1;
-            Int.Value = 1;
-            Dex.Value = 1;
-            Luk.Value = 1;
-            points.Text = "";
-            puntos = 0;
+            int div = (int)Math.Ceiling(level / 10d) + 1;
+            int mod = (level - 2) % 10 + 1;
+            int prev = 10 * (((div - 1) * div) - 2) / 2;
+
+            return div * mod + prev;
         }
         public void actualizar(object sender, EventArgs e)
         {
-            int cuenta = puntos;
-            for (int i = 2; i <= Str.Value; i++)
-            {
-                cuenta -= (int)Math.Ceiling((i-1) / 10.0) + 1;
-            }
-            for (int i = 2; i <= Agi.Value; i++)
-            {
-                cuenta -= (int)Math.Ceiling((i-1) / 10.0) + 1;
-            }
-            for (int i = 2; i <= Vit.Value; i++)
-            {
-                cuenta -= (int)Math.Ceiling((i-1) / 10.0) + 1;
-            }
-            for (int i = 2; i <= Int.Value; i++)
-            {
-                cuenta -= (int)Math.Ceiling((i-1) / 10.0) + 1;
-            }
-            for (int i = 2; i <= Dex.Value; i++)
-            {
-                cuenta -= (int)Math.Ceiling((i-1) / 10.0) + 1;
-            }
-            for (int i = 2; i <= Luk.Value; i++)
-            {
-                cuenta -= (int)Math.Ceiling((i-1) / 10.0) + 1;
-            }
+            int cuenta = buildStats(Int32.Parse("" + level.Value), trans.Checked);
+            cuenta -= spentStats((int)Str.Value);
+            cuenta -= spentStats((int)Agi.Value);
+            cuenta -= spentStats((int)Vit.Value);
+            cuenta -= spentStats((int)Int.Value);
+            cuenta -= spentStats((int)Dex.Value);
+            cuenta -= spentStats((int)Luk.Value);
+            
             points.Text = cuenta + "";
         }
 
         private void Kalk_Load(object sender, EventArgs e)
         {
-
+            points.Text = "48";
         }
     }
 }
